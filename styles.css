@@ -32,10 +32,13 @@ body {
   flex-direction: column;
   gap: 5px;
 
+  background-color: #e2e8f0;
+  padding: 20px;
+  border-radius: 10px;
   visibility: hidden;
   position: absolute;
-  height: 100%;
-  top: 150%;
+  /* height: auto; */
+  top: 100px;
 }
 
 input:focus {
@@ -45,6 +48,76 @@ input:focus {
 input:invalid {
   border: 2px solid red;
 }
+
+.library {
+  width: 100%;
+  margin: 20px;
+  padding: 20px;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 250px));
+  gap: 20px;
+
+  border: 1px solid blue;
+  border-radius: 10px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid red;
+  border-radius: 10px;
+  padding: 10px;
+  max-width: 250px;
+  position: relative;
+}
+
+.del-button {
+  position: absolute;
+  background-color: gray;
+  right: 5%;
+  border: 0;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+
+.del-button:hover {
+  cursor: pointer;
+}
+
+.status {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* .card {
+  border: 1px solid #ddd;
+  padding: 12px;
+  margin: 10px;
+  border-radius: 8px;
+  background: #f9f9f9;
+  width: 200px;
+}
+
+.status {
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.toggle-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.toggle-btn:hover {
+  background: #0056b3;
+} */
 
 /* 
 input,

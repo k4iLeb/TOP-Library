@@ -1,4 +1,15 @@
-const books = [];
+// const books = [];
+const books = [
+  {
+    title: "Atomic Habits",
+    author: "James Clear",
+    pages: "320",
+    read: false,
+    data: "2025221161135924",
+  },
+];
+
+console.log(books);
 
 // **** SELECTORS ****
 
@@ -6,12 +17,26 @@ const input = document.querySelectorAll("input");
 const submit = document.querySelector(".submit");
 const inputCard = document.querySelector(".input");
 const addBook = document.querySelector(".addBook");
+const library = document.querySelector(".library");
 
 // **** LISTENERS ****
 
 submit.addEventListener("click", addBookToLibrary);
 
 addBook.addEventListener("click", showForm);
+
+// delBtn.forEach((x) => {
+//   x.addEventListener("click", () => {
+//     console.log("hi");
+//   });
+// });
+
+// console.log(delBtn);
+
+// **** DISPLAY BOOKS ****
+displayBooks();
+
+// **** FUNCTIONS ****
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -61,5 +86,63 @@ function addBookToLibrary() {
   books.push(book);
   inputCard.style.visibility = "hidden";
 
-  console.log(books);
+  // console.log(books);
+  displayBooks();
 }
+
+function displayBooks() {
+  library.innerHTML = "";
+  books.forEach(({ title, author, pages, read, data }) => {
+    const card = document.createElement("div");
+    card.classList.add("card");
+    card.setAttribute("data", `${data}`);
+
+    const titleEl = document.createElement("p");
+    titleEl.classList.add("title");
+    titleEl.textContent = title;
+
+    const authorEl = document.createElement("p");
+    authorEl.classList.add("author");
+    authorEl.textContent = `by ${author}`;
+
+    const pagesEl = document.createElement("p");
+    pagesEl.classList.add("pages");
+    pagesEl.textContent = `${pages} pages`;
+
+    const readEl = document.createElement("div");
+    readEl.classList.add("status");
+    readEl.textContent = read ? "Read" : "Not Read";
+
+    const delEl = document.createElement("button");
+    delEl.classList.add("del-button");
+    delEl.innerText = `X`;
+    delEl.addEventListener("click", () => {
+      books.forEach((x) => {
+        if (x.data == delEl.parentElement.attributes[1].value) {
+          books.splice(books.indexOf(x), 1);
+          displayBooks();
+        }
+      });
+    });
+
+    const toggleButton = document.createElement("button");
+    toggleButton.classList.add("toggle-btn");
+    toggleButton.textContent = read ? "Mark as Unread" : "Mark as Read";
+    // *** WIP: ADD TOGGLE FUNCTIONALITY ***
+
+    readEl.append(toggleButton);
+    card.append(titleEl, authorEl, pagesEl, readEl, delEl);
+    library.appendChild(card);
+  });
+}
+
+// library.innerHTML = books
+//   .map((x) => {
+//     return `<div class="card">
+//       <p class="title">${x.title}</p>
+//       <p class="author">${x.author}</p>
+//       <p class="pages">${x.pages}</p>
+//       <div class="status">${x.read ? "Read" : "Not Read"}</div>
+//     </div>`;
+//   })
+//   .join("");
