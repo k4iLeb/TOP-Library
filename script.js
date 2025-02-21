@@ -1,13 +1,20 @@
-// const books = [];
-const books = [
-  {
-    title: "Atomic Habits",
-    author: "James Clear",
-    pages: "320",
-    read: false,
-    data: "2025221161135924",
-  },
-];
+const books = [];
+// const books = [
+//   {
+//     title: "Atomic Habits",
+//     author: "James Clear",
+//     pages: "320",
+//     read: false,
+//     data: "2025221161135924",
+//   },
+// ];
+books.push(new Book("Atomic Habits", "James Clear", "320", false));
+books.push(
+  new Book("So Good They Can't Ignore You", "Cal Newport", "305", false)
+);
+books.push(
+  new Book("The Subtle Art of Not Giving a F*ck", "Mark Manson", "212", true)
+);
 
 console.log(books);
 
@@ -25,6 +32,17 @@ submit.addEventListener("click", addBookToLibrary);
 
 addBook.addEventListener("click", showForm);
 
+document.addEventListener("click", (e) => {
+  if (inputCard.contains(e.target) || addBook.contains(e.target)) {
+  } else {
+    resetInput();
+  }
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.key == "Escape") resetInput();
+});
+
 // **** DISPLAY BOOKS ****
 displayBooks();
 
@@ -35,8 +53,15 @@ function Book(title, author, pages, read) {
   this.author = author;
   this.pages = pages;
   this.read = read;
-  this.data = createData();
+  this.data =
+    this.title.slice(0, 2).toLowerCase() +
+    this.author.slice(0, 2).toLowerCase() +
+    createData();
 }
+
+Book.prototype.toggleRead = function () {
+  return (this.read = !this.read);
+};
 
 function createData() {
   const date = new Date();
@@ -74,12 +99,18 @@ function addBookToLibrary() {
     input[3].checked
   );
 
-  input.forEach((x) => (x.value = ""));
   books.push(book);
-  inputCard.style.visibility = "hidden";
+  resetInput();
 
-  // console.log(books);
   displayBooks();
+}
+
+function resetInput() {
+  input.forEach((x) => {
+    x.value = "";
+    x.checked = false;
+  });
+  inputCard.style.visibility = "hidden";
 }
 
 function displayBooks() {
@@ -108,10 +139,11 @@ function displayBooks() {
     const delEl = document.createElement("button");
     delEl.classList.add("del-button");
     delEl.innerText = `X`;
-    delEl.addEventListener("click", () => {
-      books.forEach((x) => {
-        if (x.data == delEl.parentElement.attributes[1].value) {
-          books.splice(books.indexOf(x), 1);
+    delEl.addEventListener("click", (e) => {
+      books.forEach((x, index) => {
+        let data = e.target.parentElement.attributes[1].value;
+        if (x.data == data) {
+          books.splice(index, 1);
           displayBooks();
         }
       });
@@ -120,7 +152,16 @@ function displayBooks() {
     const toggleButton = document.createElement("button");
     toggleButton.classList.add("toggle-btn");
     toggleButton.textContent = read ? "Mark as Unread" : "Mark as Read";
-    // *** WIP: ADD TOGGLE FUNCTIONALITY ***
+
+    toggleButton.addEventListener("click", (e) => {
+      const data = e.target.parentElement.parentElement.attributes[1].value;
+      books.forEach((x) => {
+        if (x.data == data) {
+          x.toggleRead();
+          displayBooks();
+        }
+      });
+    });
 
     readEl.append(toggleButton);
     card.append(titleEl, authorEl, pagesEl, readEl, delEl);
