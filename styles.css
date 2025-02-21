@@ -39,6 +39,7 @@ body {
   position: absolute;
   /* height: auto; */
   top: 100px;
+  z-index: 1;
 }
 
 input:focus {
