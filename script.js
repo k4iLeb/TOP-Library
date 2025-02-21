@@ -25,14 +25,6 @@ submit.addEventListener("click", addBookToLibrary);
 
 addBook.addEventListener("click", showForm);
 
-// delBtn.forEach((x) => {
-//   x.addEventListener("click", () => {
-//     console.log("hi");
-//   });
-// });
-
-// console.log(delBtn);
-
 // **** DISPLAY BOOKS ****
 displayBooks();
 
@@ -135,14 +127,3 @@ function displayBooks() {
     library.appendChild(card);
   });
 }
-
-// library.innerHTML = books
-//   .map((x) => {
-//     return `<div class="card">
-//       <p class="title">${x.title}</p>
-//       <p class="author">${x.author}</p>
-//       <p class="pages">${x.pages}</p>
-//       <div class="status">${x.read ? "Read" : "Not Read"}</div>
-//     </div>`;
-//   })
-//   .join("");
