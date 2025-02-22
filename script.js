@@ -1,18 +1,7 @@
 const books = [];
-// const books = [
-//   {
-//     title: "Atomic Habits",
-//     author: "James Clear",
-//     pages: "320",
-//     read: false,
-//     data: "2025221161135924",
-//   },
-// ];
-books.push(new Book("Atomic Habits", "James Clear", "320", false));
 books.push(
-  new Book("So Good They Can't Ignore You", "Cal Newport", "305", false)
-);
-books.push(
+  new Book("Atomic Habits", "James Clear", "320", false),
+  new Book("So Good They Can't Ignore You", "Cal Newport", "305", false),
   new Book("The Subtle Art of Not Giving a F*ck", "Mark Manson", "212", true)
 );
 
@@ -134,7 +123,13 @@ function displayBooks() {
 
     const readEl = document.createElement("div");
     readEl.classList.add("status");
-    readEl.textContent = read ? "Read" : "Not Read";
+
+    const readSp = document.createElement("span");
+    readSp.classList.add("status");
+    readSp.textContent = read ? "Read" : "Not Read";
+    readSp.style.backgroundColor = read
+      ? "rgba(68, 250, 129, 0.699)"
+      : "rgba(250, 68, 92, 0.699)";
 
     const delEl = document.createElement("button");
     delEl.classList.add("del-button");
@@ -163,7 +158,7 @@ function displayBooks() {
       });
     });
 
-    readEl.append(toggleButton);
+    readEl.append(readSp, toggleButton);
     card.append(titleEl, authorEl, pagesEl, readEl, delEl);
     library.appendChild(card);
   });
