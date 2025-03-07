@@ -25,7 +25,7 @@ document.addEventListener("keydown", (e) => {
   if (e.key == "Escape") resetInput();
 });
 
-// **** CLASS ****
+// **** CLASSES ****
 
 class Book {
   constructor(title, author, pages, read) {
