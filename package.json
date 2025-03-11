@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/k4iLeb/TOP-Library/issues"
   },
-  "homepage": "https://github.com/k4iLeb/TOP-Library#readme",
+  "homepage": "https://github.com/k4iLeb/TOP-Library",
   "dependencies": {
     "uuid": "^11.1.0"
   },
