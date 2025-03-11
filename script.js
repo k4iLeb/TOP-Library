@@ -1,3 +1,6 @@
+// **** IMPORTS ****
+import { v4 as uuidv4 } from "uuid";
+
 // **** CLASSES ****
 class Book {
   constructor(title, author, pages, read) {
@@ -5,35 +8,8 @@ class Book {
     this.author = author;
     this.pages = pages;
     this.read = read;
-    this.data =
-      this.title.slice(0, 2).toLowerCase() +
-      this.author.slice(0, 2).toLowerCase() +
-      this.createData();
+    this.data = uuidv4();
   }
-
-  createData = () => {
-    const date = new Date();
-    const [year, month, day, hrs, mins, secs, ms] = [
-      date.getFullYear(),
-      date.getMonth() + 1,
-      date.getDate(),
-      date.getHours(),
-      date.getMinutes(),
-      date.getSeconds(),
-      date.getMilliseconds(),
-    ];
-    const data = [
-      year.toString(),
-      month.toString(),
-      day.toString(),
-      hrs.toString(),
-      mins.toString(),
-      secs.toString(),
-      ms.toString(),
-    ];
-
-    return data.join("");
-  };
 
   toggleRead = () => {
     this.read = !this.read;
@@ -81,7 +57,7 @@ class Display {
     this.library.getBooks.forEach((book) => {
       const card = document.createElement("div");
       card.classList.add("card");
-      card.setAttribute("data", `${book.data}`);
+      card.dataset.id = book.data;
 
       const titleEl = document.createElement("p");
       titleEl.classList.add("title");
